@@ -65,7 +65,7 @@
     font-family: cursive;
 }
 </style>
-<p style="text-align: center;">Hi Guys.. Got board and made this</p>
+<p class="testapi" style="text-align: center;">Hi Guys.. Got board and made this</p>
 <form>
 <div class="header">
     <input type="text"  placeholder="enter job description" size="80">
@@ -113,7 +113,25 @@
 </div>
 </div>
 <script src="script.js"></script>
+<script>
+    const url = "http://localhost:5298"
 
+    let result =  document.querySelector(".testapi")
 
+    // fetch(url)
+    // .then(res=>res.text()).then(blob=>result.innerHTML=blob)
+    dothis()
+    async function dothis(){
+        const doc = await fetch(url,{
+            method:"Get",
+        })
+        const res = await doc.text()
+       console.log(res)
+    }
+   
+
+   
+
+</script>
 </body>
 </html>
