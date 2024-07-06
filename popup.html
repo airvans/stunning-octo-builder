@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<style>
+ 
+.center{
+    display: flex;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+    
+}
+.popup{
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.popup .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  top: -5px;
+  left: 105%;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.popup:hover .tooltiptext {
+  visibility: visible;
+}
+
+.popup .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+</style>
+<div class="center">
+        <div class="popup" >
+            hello Sed ut perspiciatis unde omnis iste natus   <br>
+             error sit voluptatem accusantium doloremque la   udantium,<br>
+              totam rem aperiam, eaque ipsa quae ab illo in   ventore <br>
+              veritatis et quasi architecto beatae vitae di   cta sunt<br>
+               explicabo. Nemo enim ipsam voluptatem quia v   oluptas <br>
+               sit aspernatur aut odit aut fugit, sed quia    consequuntur<br>
+                magni dolores eos qui ratione voluptatem se   qui nesciunt.<br>
+
+            <span class="tooltiptext">this is a span</span>
+        </div>
+</div>
+
+
+  
+<script>
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+
+    </script>
+</body>
+</html>

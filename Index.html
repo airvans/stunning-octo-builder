@@ -69,6 +69,24 @@
     font-family: cursive;
 }
 
+.loader {
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid lightblue;
+  border-right-color: orange;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    height:300px;
+}
+
 </style>
 <p class="testapi" style="text-align: center;">Hi Guys.. Got board and made this</p>
 
@@ -80,26 +98,26 @@
     <input id="jobr" type="text"  placeholder="enter job description" size="80" required>
 </div>
 <div class="header">
-    <button id="download" class="change" >Download</button>
     <input type="submit" value="Match">
 </div>
 </form>
+<div>
+    <button id="download" class="change" >Download</button>
+</div>
 
 
 <div class="content">
 <div id="container">
 <div class="name">Evan Della</div> 
-<div class="title">Account Manager</div> 
+<div class="title" contentEditable="true">Account Manager</div> 
 
 <div class="details">
-    +48 737 373 737<br>
-    evanarugu@gmail.com<br>
+    +48 730 616 680<br>
+    airvansairvans@gmail.com<br>
     rzeszow,poland<br>
 </div>
 
 <hr>
-
-<div class="reftitle">job reference: Senior Account Manager</div>
 <div class="cover-body" contentEditable="true">
      Hello,<br>
     <div id="content">
@@ -119,9 +137,11 @@
 </div>
 </div>
 <script src="script.js"></script>
+
 <script>
     const url = "http://localhost:5298/Openai/getcontent"
     const url1 = "http://localhost:5298/simulation"
+    const url2="http://localhost:5298/Openai/gettitlejson"
     
     const bodyobj = {jobdescrption:"",jobresume:""}
 
@@ -132,21 +152,23 @@
 
 
     let result =  document.querySelector("#content")
+    let title = document.querySelector(".title")
 
     jobdescription = document.querySelector("#jobd")
     jobresume=document.querySelector("#jobr")
 
     jobdescription.addEventListener("change",()=>bodyobj.jobdescrption=jobdescription.value)
+
     jobresume.addEventListener("change",()=>bodyobj.jobresume=jobresume.value)
         
     document.getElementById('jobForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
-            changecontent(); // Call the function
+            changecontent(); // Call the function     
     });
-
-    console.log(bodyobj)
     
         function changecontent(a,b){
+        result.innerHTML='<div class="center"><div class="loader"></div><div>'
+
         fetch(url, {
                         method:'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -156,8 +178,20 @@
                     .then(blob=>{
                         const response = convertToParagraphs(blob)
                         result.innerHTML=response
-                    })
+                    })     
+        fetch(url2, {
+                        method:'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body:JSON.stringify(bodyobj.jobresume)
+                    }) 
+                    .then(res=>res.json())
+                    .then(blob=>{
+                        console.log(blob)
+                        title.innerHTML=blob.jobtitle
+                    })            
           }
+
+         
    
           function convertToParagraphs(plainText) {
             
@@ -174,3 +208,4 @@
     </p> -->
 </body>
 </html>
+
