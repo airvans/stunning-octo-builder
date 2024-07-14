@@ -27,6 +27,9 @@
     background-color: gainsboro;
 
 }
+#content:hover{
+    background-color: grey;
+}
 #container{
     /* width: 750px;
     height:800px; */
@@ -41,6 +44,29 @@
     margin-left: 10px;
     font-size: 22px;
     font-weight: bold;
+    position: relative;
+}
+
+.title:hover{
+  background-color: gray;
+}
+.title span{
+   visibility: hidden;
+   position: absolute;
+   background-color: blue;
+   left: 105%;
+   top: -40px;
+   padding: 20px;
+}
+.title span::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent blue transparent transparent;
 }
 .details{
     margin: 10px;
@@ -109,7 +135,9 @@
 <div class="content">
 <div id="container">
 <div class="name">Evan Della</div> 
-<div class="title" contentEditable="true">Account Manager</div> 
+<div class="title" contentEditable="true">Account Manager 
+    <!-- <span></span> -->
+</div> 
 
 <div class="details">
     +48 730 616 680<br>
@@ -153,6 +181,7 @@
 
     let result =  document.querySelector("#content")
     let title = document.querySelector(".title")
+    // let cspan = document.querySelector(".title span")
 
     jobdescription = document.querySelector("#jobd")
     jobresume=document.querySelector("#jobr")
@@ -160,11 +189,25 @@
     jobdescription.addEventListener("change",()=>bodyobj.jobdescrption=jobdescription.value)
 
     jobresume.addEventListener("change",()=>bodyobj.jobresume=jobresume.value)
+
+    // title.addEventListener("click",afunction)
+
         
     document.getElementById('jobForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
             changecontent(); // Call the function     
     });
+
+    // function afunction(e){
+    //      console.log(e);
+    //     if(e.shiftKey){
+
+    //        cspan.style.visibility = "visible"
+    //        cspan.innerHTML = "accountant fishmonger lawer"
+
+    //     }
+
+    // }
     
         function changecontent(a,b){
         result.innerHTML='<div class="center"><div class="loader"></div><div>'

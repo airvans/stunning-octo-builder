@@ -158,5 +158,29 @@ return Ok("success");
 
     }
 
+    [Route("testerform")]
+    [HttpGet]
+
+    public IActionResult formget(string name, string surname){
+
+      return Ok($"you sent me a {name} and {surname} ");
+    }
+
+    [Route("testerform")]
+    [HttpPost]
+
+    public IActionResult formpost([FromForm]Form user ){
+
+      return Ok($"you sent me a {user.surname} and {user.name} from form");
+
+    }
+
+    public class Form{
+
+      public string? surname{get;set;}
+      public string? name{get;set;}
+
+    }
+
 }
 

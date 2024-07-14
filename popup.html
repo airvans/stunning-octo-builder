@@ -10,7 +10,7 @@
  
 .center{
     display: flex;
-    height: 600px;
+    height: 200px;
     justify-content: center;
     align-items: center;
     
@@ -49,6 +49,20 @@
   border-style: solid;
   border-color: transparent black transparent transparent;
 }
+.box{
+  background-color: darkslategray;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.box2{
+  position: absolute;
+  background-color:crimson;
+  width: 100px;
+  height: 100px;
+  top: 1%; 
+  left: 1%; 
+}
 </style>
 <div class="center">
         <div class="popup" >
@@ -64,7 +78,9 @@
         </div>
 </div>
 
-
+<div class="box">
+  <div class="box2"></div>
+</div>
   
 <script>
 function myFunction() {
