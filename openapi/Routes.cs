@@ -38,6 +38,47 @@ return Ok("success");
     
  }
 
+  [Route("getstatement")]
+ [HttpPost]
+ public async Task<IActionResult> Getstatement([FromBody] string content){
+   
+   var connect = configuration["apikey"];
+   var api = new OpenAIAPI(connect);  
+
+   var testapi= api.Chat.CreateConversation();
+   testapi.RequestParameters.Model = "gpt-4o";
+   testapi.AppendSystemMessage("You will be provided with a job description enclosed in XML tags. generate an resume objective statement for the role. with a prefix that says \"statement : \"."); 
+   testapi.AppendUserInput($"<article>{content}</article>");
+   var results= await testapi.GetResponseFromChatbotAsync();
+   return Ok(results);
+    
+ }
+
+ 
+ [Route("getskillsjson")]
+ [HttpPost]
+ public async Task<IActionResult> Getskillsjson([FromBody] string content){
+   
+   var connect = configuration["apikey"];
+   var api = new OpenAIAPI(connect);  
+
+   ChatRequest chatRequest = new ChatRequest()
+     {
+	    Model = Model.GPT4_Turbo,
+	    Temperature = 0.0,
+	    MaxTokens = 500,
+	    ResponseFormat = ChatRequest.ResponseFormats.JsonObject,
+	    Messages = [
+		    new ChatMessage(ChatMessageRole.System, "You will be provided with a job description of articles (delimited with XML tags). generate a List skills relevant to the role as keywords from the job description as JSON with prexif \"skills\" "),
+		    new ChatMessage(ChatMessageRole.User,$"<article>{content}</article>")
+	     ]
+    };
+
+    var results = await api.Chat.CreateChatCompletionAsync(chatRequest);
+    return Ok(results.ToString());
+     
+ }
+
  [Route("gettitle")]
  [HttpPost]
  public async Task<IActionResult> Gettitle([FromBody] string content){
@@ -54,7 +95,9 @@ return Ok("success");
     
  }
 
-  [Route("gettitlejson")]
+
+
+ [Route("gettitlejson")]
  [HttpPost]
  public async Task<IActionResult> Gettitlejson([FromBody] string content){
    
